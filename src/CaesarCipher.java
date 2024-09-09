@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class CaesarCipher {
 
 
@@ -44,8 +42,28 @@ public class CaesarCipher {
         return alphabet[newIndex];
     }
 
-    public static String bruteForceDecrypt(String text) {
-        // Перебор всех ключей для расшифровки
-        return "";
+    public static String bruteForceDecrypt(String text, int key) {
+        char[] alphabet = Alphabet.getALPHABET();
+        StringBuilder decrypted = new StringBuilder();
+        int length = alphabet.length;
+        int newIndex;
+
+        for (char symbol : text.toCharArray()) {
+            int index = -1;
+            for (int i = 0; i < length; i++) {
+                if (alphabet[i] == symbol) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index != -1) {
+                newIndex = (index - key + length) % length;
+                decrypted.append(alphabet[newIndex]);
+            } else {
+                decrypted.append(symbol);
+            }
+        }
+
+        return decrypted.toString();
     }
 }
