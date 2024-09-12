@@ -22,7 +22,6 @@ public class CaesarCipher {
     }
 
     public static char decrypt(char symbol, int key) {
-        // Логика расшифровки
         char[] alphabet = Alphabet.getALPHABET();
         int length = alphabet.length;
         int newIndex;

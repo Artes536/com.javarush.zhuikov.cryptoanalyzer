@@ -60,6 +60,10 @@ public class Main {
         } else if (userСhoice == 3) {
             return;
         }
-
+        else {
+            return;
+        }
     }
 }
+//C:\Users\Семён\Desktop\newFile.txt
+//C:\Users\Семён\Desktop\sampler.txt
