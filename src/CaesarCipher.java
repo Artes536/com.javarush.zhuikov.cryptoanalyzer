@@ -2,6 +2,7 @@
 
 public class CaesarCipher {
 
+    public static int key = 0;
 
     public static char encrypt(char symbol, int key) {
         char[] alphabet = Alphabet.getALPHABET();
@@ -60,6 +61,7 @@ public class CaesarCipher {
             if (index != -1) {
                 newIndex = (index - key + length) % length;
                 decrypted.append(alphabet[newIndex]);
+                CaesarCipher.key = newIndex;
             } else {
                 decrypted.append(symbol);
             }
@@ -67,4 +69,5 @@ public class CaesarCipher {
 
         return decrypted.toString();
     }
+
 }

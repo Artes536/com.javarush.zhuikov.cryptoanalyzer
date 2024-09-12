@@ -33,35 +33,47 @@ public class FileHandler {
             System.out.println("Файл не найден или введён неверный путь!");
             return;
         }
-        try {
-            String text = Files.readString(path);
-            boolean isFound = false;
 
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFilePath))) {
+            boolean isFound = false;
+            StringBuilder sampleBuilder = new StringBuilder();
+            int currentChar;
+            int maxSampleSize = 100;
+            while ((currentChar = bufferedReader.read()) != -1 && sampleBuilder.length() < maxSampleSize) {
+                sampleBuilder.append((char) currentChar);
+            }
+
+            String sampleText = sampleBuilder.toString();
+
+            // Перебор ключей
             for (int key = 0; key < Alphabet.getALPHABET().length; key++) {
-                String decryptedText = CaesarCipher.bruteForceDecrypt(text, key);
+                String decryptedSample = CaesarCipher.bruteForceDecrypt(sampleText, key);
 
                 System.out.println("Попробовать ключ " + key + "?");
-                System.out.println("Зашифрованный текст:");
-                System.out.println(decryptedText);
+                System.out.println("Расшифрованный фрагмент:");
+                System.out.println(decryptedSample);
                 System.out.println("Введите 'да', если это правильный текст, или 'нет', чтобы попробовать другой ключ:");
 
                 String userResponse = scanner.nextLine();
 
                 if ("да".equalsIgnoreCase(userResponse)) {
-                    try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(outputFilePath))) {
-                        bufferedWriter.write(decryptedText);
+                    try (BufferedReader fileReader = new BufferedReader(new FileReader(inputFilePath));
+                         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(outputFilePath))) {
+                        while ((currentChar = fileReader.read()) != -1) {
+                            char symbol = (char) currentChar;
+                            char decryptedSymbol = CaesarCipher.decrypt(symbol, key);
+                            fileWriter.write(decryptedSymbol);
+                        }
                     }
                     System.out.println("Файл записан");
                     isFound = true;
                     break;
                 }
-
             }
+
             if (!isFound) {
                 System.out.println("Ключ не найден");
-                return;
             }
-
         }
         catch (IOException e) {
             throw new RuntimeException("Ошибка при чтении файла: " + inputFilePath, e);
