@@ -57,17 +57,14 @@ public class FileHandler {
                 }
 
             }
-            if (!isFound){
+            if (!isFound) {
                 System.out.println("Ключ не найден");
                 return;
             }
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
-
-
+        catch (IOException e) {
+            throw new RuntimeException("Ошибка при чтении файла: " + inputFilePath, e);
+        }
     }
-
-
 }
