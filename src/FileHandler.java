@@ -45,7 +45,6 @@ public class FileHandler {
 
             String sampleText = sampleBuilder.toString();
 
-            // Перебор ключей
             for (int key = 0; key < Alphabet.getALPHABET().length; key++) {
                 String decryptedSample = CaesarCipher.bruteForceDecrypt(sampleText, key);
 
