@@ -26,9 +26,9 @@ public class Texts {
 
     public static final String ENTER_INPUT_FILE_PATH_RU = "Напишите путь к файлу, где находится ваш текст: ";
 
-    public static final String ENTER_OUTPUT_FILE_PATH_RU = "Напишите путь куда писать расшифрованный текст: ";
+    public static final String ENTER_OUTPUT_FILE_PATH_RU = "Напишите путь куда писать текст: ";
 
-    public static final String ENTER_SHIFT_VALUE_RU = "Напишите путь куда писать расшифрованный текст: ";
+    public static final String ENTER_SHIFT_VALUE_RU = "Напишите на сколько значений сдвинуть: ";
 
     public static final String FILE_SAVED_RU = "Файл записан";
 
