@@ -1,4 +1,7 @@
+package utills;
 
+import data.Alphabet;
+import data.Texts;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -10,7 +13,7 @@ public class FileHandler {
     public static void processFile(String inputFilePath, String outputFilePath, int key, boolean isEncrypt) {
 
         if (!Files.isRegularFile(Path.of(inputFilePath))) {
-            System.out.println("Файл не найден или введён неверный путь!");
+            System.out.println(Texts.FILE_NOT_FOUND_RU);
             return;
         }
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFilePath));
@@ -22,7 +25,7 @@ public class FileHandler {
                 bufferedWriter.write(processedChar);
             }
         } catch (IOException e) {
-            throw new RuntimeException("Ошибка при чтение файла: " + inputFilePath, e);
+            throw new RuntimeException(Texts.ERROR_READING_FILE_RU + inputFilePath, e);
         }
 
     }
@@ -30,7 +33,7 @@ public class FileHandler {
     public static void processFile(String inputFilePath, String outputFilePath, Scanner scanner) {
         Path path = Path.of(inputFilePath);
         if (!Files.isRegularFile(path)) {
-            System.out.println("Файл не найден или введён неверный путь!");
+            System.out.println(Texts.FILE_NOT_FOUND_RU);
             return;
         }
 
@@ -48,10 +51,10 @@ public class FileHandler {
             for (int key = 0; key < Alphabet.getALPHABET().length; key++) {
                 String decryptedSample = CaesarCipher.bruteForceDecrypt(sampleText, key);
 
-                System.out.println("Попробовать ключ " + key + "?");
-                System.out.println("Расшифрованный фрагмент:");
+                System.out.println(Texts.TRY_KEY_RU + key );
+                System.out.println(Texts.DECRYPTED_FRAGMENT_RU);
                 System.out.println(decryptedSample);
-                System.out.println("Введите 'да', если это правильный текст, или 'нет', чтобы попробовать другой ключ:");
+                System.out.println(Texts.PROMPT_CORRECT_TEXT_RU);
 
                 String userResponse = scanner.nextLine();
 
@@ -64,18 +67,18 @@ public class FileHandler {
                             fileWriter.write(decryptedSymbol);
                         }
                     }
-                    System.out.println("Файл записан");
+                    System.out.println(Texts.FILE_SAVED_RU);
                     isFound = true;
                     break;
                 }
             }
 
             if (!isFound) {
-                System.out.println("Ключ не найден");
+                System.out.println(Texts.KEY_NOT_FOUND_RU);
             }
         }
         catch (IOException e) {
-            throw new RuntimeException("Ошибка при чтении файла: " + inputFilePath, e);
+            throw new RuntimeException(Texts.ERROR_READING_FILE_RU + inputFilePath, e);
         }
     }
 }
